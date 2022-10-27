@@ -18,8 +18,15 @@ class web_server(http.server.SimpleHTTPRequestHandler):
             self.send_header("Content-type", "text/html; charset=UTF-8")
             self.end_headers()            
             self.wfile.write(b"Hello World!\n")
-            now = datetime.now()
-            self.wfile.write(now.strftime("%H:%M:%S").encode("UTF-8"))
+            #now = datetime.now()
+            #self.wfile.write(now.strftime("%H:%M:%S").encode("UTF-8"))
+            
+        elif self.path == '/?cmd=time':
+            self.protocol_version = 'HTTP/1.1'
+            self.send_response(200)
+            self.send_header("Content-type", "text/html; charset=UTF-8")
+            self.end_headers()            
+            self.wfile.write(b"time\n")
         else:
             super().do_GET()
     
