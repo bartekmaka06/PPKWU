@@ -29,26 +29,25 @@ class web_server(http.server.SimpleHTTPRequestHandler):
         else:
            
             params = self.path.split('&')
-            
+           
             first = params[0]
             first = first[2:].split('=')
             second = params[1].split('=')
-            
+          
             first_name=first[0]
             first_val=first[1]
+            
             second_name=second[0]
             second_val=second[1]
             
-            self.protocol_version = 'HTTP/1.1'
-            self.send_response(200)
-            self.send_header("Content-type", "text/html; charset=UTF-8")
-            self.end_headers() 
-            self.wfile.write(second_val.encode("UTF-8"))
-            #if len(params) == 2 :
-            #	cmd = param[0]
-            #	str = param[1]
-        
-            #super().do_GET()
+            if first_name=='cmd' and first_val=='rev'and second_name=='str':
+                self.protocol_version = 'HTTP/1.1'
+                self.send_response(200)
+                self.send_header("Content-type", "text/html; charset=UTF-8")
+                self.end_headers() 
+                self.wfile.write(second_val[::-1].encode("UTF-8"))
+            else:
+                super().do_GET()
     
 # --- main ---
 
