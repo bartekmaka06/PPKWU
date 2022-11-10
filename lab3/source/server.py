@@ -26,7 +26,16 @@ class web_server(http.server.SimpleHTTPRequestHandler):
             
             tab = self.path.split('/?str=')
             string = tab[1]
-            self.wfile.write(string.encode("UTF-8")) 
+            #self.wfile.write(string.encode("UTF-8")) 
+
+            uppercase_count = sum(1 for char in string if char.isupper())
+            lowercase_count = sum(1 for char in string if char.islower())
+            digit_count = sum(1 for char in string if char.isdigit())
+            special_count = len(string)-uppercase_count-lowercase_count-digit_count
+
+            show = str(uppercase_count) + " " + str(lowercase_count) + " " + str(digit_count) +" "+str(special_count)
+
+            self.wfile.write(show.encode("UTF-8")) 
 
         else:
             tab = self.path.split('/?str=')
