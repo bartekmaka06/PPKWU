@@ -35,7 +35,6 @@ class web_server(http.server.SimpleHTTPRequestHandler):
                         "mod":int(num1%num2)}]
             jsonString = json.dumps(myList, indent=4)
             self.wfile.write(jsonString.encode("UTF-8")) 
-            print("hello")
             print(jsonString)
     
 # --- main ---
