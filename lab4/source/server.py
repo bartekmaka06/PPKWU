@@ -24,9 +24,17 @@ class web_server(http.server.SimpleHTTPRequestHandler):
         #parsed_url = urlparse(url)
         parsed_url = urlparse(self.path)
 
-        captured_value = parse_qs(parsed_url.query)['num1'][0]
-        self.wfile.write(captured_value.encode("UTF-8"))
-        self.wfile.write(b"Hello World!\n")
+        params = parse_qs(parsed_url.query)
+        if len(params)==2:
+            num1=params['num1'][0]
+            num2=params['num2'][0]
+
+            self.wfile.write(num1.encode("UTF-8"))
+            self.wfile.write(b"\n")
+            self.wfile.write(num2.encode("UTF-8"))
+
+
+        #self.wfile.write(b"Hello World!\n")
         # if self.path == '/':
         #     self.protocol_version = 'HTTP/1.1'
         #     self.send_response(200)
