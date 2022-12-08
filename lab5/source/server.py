@@ -16,6 +16,14 @@ def calculateString(ss: str):
         "special": special_count
     }
 
+def calculateNumbers(num1:int,num2:int):
+    return{
+        "sum": num1+num2,
+        "sub":num1-num2,
+        "mul":num1*num2,
+        "div":num1//num2,
+        "mod":num1%num2
+    }
 @app.route("/", methods=['POST'])
 def main():
     request_json = request.get_json()
@@ -23,7 +31,8 @@ def main():
     num1 = request_json.get("num1")
     num2 = request_json.get("num2")
     
-    output=calculateString(inputStr)
+    #output=calculateString(inputStr)
+    output=calculateNumbers(num1,num2)
     return output
 
 
