@@ -49,9 +49,14 @@ def main():
     num1 = request_json.get("num1")
     num2 = request_json.get("num2")
     
-    #output=calculateString(inputStr)
-    #output=calculateNumbers(num1,num2)
-    output=calculateAll(inputStr,num1,num2)
+    if inputStr is not None and num1 is not None and num2 is not None:
+        output = calculateAll(inputStr,num1,num2)
+    else:
+        if num1 is not None and num2 is not None:
+            output = calculateNumbers(num1,num2)
+        else:
+            output=calculateString(inputStr)
+
     return output
 
 
