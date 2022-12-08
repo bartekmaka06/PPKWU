@@ -3,6 +3,7 @@ import http.server
 import socketserver
 import os
 import json
+import requests
 from datetime import datetime
 from urllib.parse import urlparse
 from urllib.parse import parse_qs
