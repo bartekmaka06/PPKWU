@@ -24,6 +24,24 @@ def calculateNumbers(num1:int,num2:int):
         "div":num1//num2,
         "mod":num1%num2
     }
+
+def calculateAll(ss: str,num1:int,num2:int):
+    uppercase_count = sum(1 for char in ss if char.isupper())
+    lowercase_count = sum(1 for char in ss if char.islower())
+    digit_count = sum(1 for char in ss if char.isdigit())
+    special_count = len(ss)-uppercase_count-lowercase_count-digit_count
+    return{
+        "lowercase": lowercase_count,
+        "uppercase": uppercase_count,
+        "digits": digit_count,
+        "special": special_count,
+        "sum": num1+num2,
+        "sub":num1-num2,
+        "mul":num1*num2,
+        "div":num1//num2,
+        "mod":num1%num2
+    }
+
 @app.route("/", methods=['POST'])
 def main():
     request_json = request.get_json()
@@ -32,7 +50,8 @@ def main():
     num2 = request_json.get("num2")
     
     #output=calculateString(inputStr)
-    output=calculateNumbers(num1,num2)
+    #output=calculateNumbers(num1,num2)
+    output=calculateAll(inputStr,num1,num2)
     return output
 
 
