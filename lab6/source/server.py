@@ -19,6 +19,8 @@ def calculateString(ss: str):
     }
 
 def calculateNumbers(num1:int,num2:int):
+    num1 = int(num1)
+    num2 = int(num2)
     return{
         "sum": num1+num2,
         "sub":num1-num2,
@@ -28,6 +30,8 @@ def calculateNumbers(num1:int,num2:int):
     }
 
 def calculateAll(ss: str,num1:int,num2:int):
+    num1 = int(num1)
+    num2 = int(num2)
     uppercase_count = sum(1 for char in ss if char.isupper())
     lowercase_count = sum(1 for char in ss if char.islower())
     digit_count = sum(1 for char in ss if char.isdigit())
@@ -53,21 +57,16 @@ def main():
     inputStr = request_xml.get("str")
     num1 = request_xml.get("num1")
     num2 = request_xml.get("num2")
-    return inputStr
-    # request_json = request.get_json()
-    # inputStr = request_json.get("str")
-    # num1 = request_json.get("num1")
-    # num2 = request_json.get("num2")
     
-    # if inputStr is not None and num1 is not None and num2 is not None:
-    #     output = calculateAll(inputStr,num1,num2)
-    # else:
-    #     if num1 is not None and num2 is not None:
-    #         output = calculateNumbers(num1,num2)
-    #     else:
-    #         output=calculateString(inputStr)
+    if inputStr is not None and num1 is not None and num2 is not None:
+        output = calculateAll(inputStr,num1,num2)
+    else:
+        if num1 is not None and num2 is not None:
+            output = calculateNumbers(num1,num2)
+        else:
+            output=calculateString(inputStr)
 
-    # return output
+    return output
 
 
 app.run(port=4080, host='0.0.0.0')
