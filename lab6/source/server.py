@@ -50,10 +50,10 @@ def main():
     root = request_xml.get("root")
     if root is not None:
         request_xml= request_xml["root"]
-        inputStr = request_xml.get("str")
-        num1 = request_xml.get("num1")
-        num2 = request_xml.get("num2")
-        return num1+" "+num2
+    inputStr = request_xml.get("str")
+    num1 = request_xml.get("num1")
+    num2 = request_xml.get("num2")
+    return inputStr
     # request_json = request.get_json()
     # inputStr = request_json.get("str")
     # num1 = request_json.get("num1")
