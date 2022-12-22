@@ -50,23 +50,26 @@ def calculateAll(ss: str,num1:int,num2:int):
 
 @app.route("/", methods=['POST'])
 def main():
-    request_xml = xmltodict.parse(request.get_data("root"))
-    root = request_xml.get("root")
+    xml_req = xmltodict.parse(request.get_data("root"))
+    root = xml_req.get("root")
     if root is not None:
-        request_xml= request_xml["root"]
-    inputStr = request_xml.get("str")
-    num1 = request_xml.get("num1")
-    num2 = request_xml.get("num2")
+        xml_req= xml_req["root"]
+    mystr = xml_req.get("str")
+    num1 = xml_req.get("num1")
+    num2 = xml_req.get("num2")
     
-    if inputStr is not None and num1 is not None and num2 is not None:
-        output = calculateAll(inputStr,num1,num2)
+    if mystr is not None and num1 is not None and num2 is not None:
+        output = calculateAll(mystr,num1,num2)
     else:
         if num1 is not None and num2 is not None:
             output = calculateNumbers(num1,num2)
         else:
-            output=calculateString(inputStr)
+            output=calculateString(mystr)
 
-    return output
+    xml_out = {}
+    xml_out["root"] = output
+    out = ('<?xml version="1.0"encoding="UTF-8"?>\n' + dict2xml(xml_out)).encode('utf-8')
+    return out
 
 
 app.run(port=4080, host='0.0.0.0')
