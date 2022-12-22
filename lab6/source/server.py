@@ -1,6 +1,8 @@
 #!/usr/bin/env python3
 from flask import Flask, request, jsonify
 import re
+from dict2xml import dict2xml
+import xmltodict
 
 app = Flask(__name__)
 
@@ -44,20 +46,28 @@ def calculateAll(ss: str,num1:int,num2:int):
 
 @app.route("/", methods=['POST'])
 def main():
-    request_json = request.get_json()
-    inputStr = request_json.get("str")
-    num1 = request_json.get("num1")
-    num2 = request_json.get("num2")
+    request_xml = xmltodict.parse(request.get_data("root"))
+    root = request_xml.get("root")
+    if root is not None:
+        request_xml= request_xml["root"]
+        inputStr = request_xml.get("str")
+        num1 = request_xml.get("num1")
+        num2 = request_xml.get("num2")
+        return num1+" "+num2
+    # request_json = request.get_json()
+    # inputStr = request_json.get("str")
+    # num1 = request_json.get("num1")
+    # num2 = request_json.get("num2")
     
-    if inputStr is not None and num1 is not None and num2 is not None:
-        output = calculateAll(inputStr,num1,num2)
-    else:
-        if num1 is not None and num2 is not None:
-            output = calculateNumbers(num1,num2)
-        else:
-            output=calculateString(inputStr)
+    # if inputStr is not None and num1 is not None and num2 is not None:
+    #     output = calculateAll(inputStr,num1,num2)
+    # else:
+    #     if num1 is not None and num2 is not None:
+    #         output = calculateNumbers(num1,num2)
+    #     else:
+    #         output=calculateString(inputStr)
 
-    return output
+    # return output
 
 
 app.run(port=4080, host='0.0.0.0')
